@@ -1,9 +1,17 @@
 import { reserveSeatsService } from "../services/ticket.service.js";
-
+import { cancelReservationService } from "../services/ticket.service.js";
+import { Reservation } from "../models/reservation.model.js";
 
 export const reserveSeats = async (req, res) => {
   try {
     const { partnerId, seats } = req.body;
+     if (!partnerId || typeof partnerId !== 'string') {
+    return res.status(400).json({ error: "partnerId is required" });
+  }
+  
+  if (!seats || typeof seats !== 'number') {
+    return res.status(400).json({ error: "seats must be a number" });
+  }
 
     const reservation = await reserveSeatsService(partnerId, seats);
 
@@ -23,7 +31,6 @@ export const reserveSeats = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-import { cancelReservationService } from "../services/ticket.service.js";
 
 export const cancelReservation = async (req, res) => {
   try {

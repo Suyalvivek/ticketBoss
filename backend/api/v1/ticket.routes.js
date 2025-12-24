@@ -3,6 +3,7 @@ import { cancelReservation, listReservations, reserveSeats } from "../../control
 
 const router = express.Router();
 router.get('/',(req,res)=>{
+  console.log("inside / route")
   res.send('Ticket Routes Working')
 })
 router.get('/reservations',listReservations);
